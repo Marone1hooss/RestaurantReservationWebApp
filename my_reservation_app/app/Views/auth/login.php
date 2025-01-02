@@ -16,6 +16,7 @@
     <?php if (!empty($error)): ?>
         <p style="color:red"><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>
+    <p> New USER? <a href="http://localhost/RestaurantReservationWebApp/my_reservation_app/public/index.php?controller=auth&action=register">Click here</a></p>
 </form>
 </body>
 </html>
