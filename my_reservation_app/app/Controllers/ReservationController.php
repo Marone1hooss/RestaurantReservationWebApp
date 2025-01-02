@@ -1,9 +1,13 @@
 <?php
 // app/Controllers/ReservationController.php
 namespace App\Controllers;
-
+require_once __DIR__ . '/../Models/ReservationModel.php';
 use App\Models\ReservationModel;
 use App\Models\MenuModel;
+
+require_once __DIR__ . '/../Models/MenuModel.php';
+require_once __DIR__ . '/../Models/ReservationModel.php';
+
 use PDO;
 
 class ReservationController {
