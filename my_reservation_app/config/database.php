@@ -1,7 +1,7 @@
 <?php
 // config/database.php
 
-$dsn = 'mysql:host=127.0.0.1;dbname=projectreservationwebproject;charset=utf8mb4';
+$dsn = 'mysql:host=127.0.0.1;dbname=my_reservation_db;charset=utf8mb4';
 $dbUser = 'root';
 $dbPass = '';
 

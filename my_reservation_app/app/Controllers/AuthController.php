@@ -2,7 +2,7 @@
 // app/Controllers/AuthController.php
 namespace App\Controllers;
 
-use App\Models\UserModel;
+require_once __DIR__ . '/../Models/UserModel.php';
 use PDO;
 
 class AuthController {

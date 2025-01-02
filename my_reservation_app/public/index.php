@@ -6,6 +6,7 @@ session_start();
 // Include the database config
 require_once __DIR__ . '/../config/database.php';
 
+
 // Autoload or manually include the Controllers/Models
 require_once __DIR__ . '/../app/Controllers/AuthController.php';
 require_once __DIR__ . '/../app/Controllers/MenuController.php';
