@@ -28,7 +28,7 @@ class ReservationController {
             header('Location: index.php');
             exit;
         }
-        require_once __DIR__ . '/../Views/reservation/index.php';
+        require_once __DIR__ . '/../Views/restaurant-template/index.html';
     }
 
     // Show all reservations for the logged-in student
@@ -75,12 +75,12 @@ public function add() {
         $validMenuItems = $this->menuModel->getItemsByDayAndMealType($dayOfWeek, $mealType);
 
         if (!in_array($contents, array_column($validMenuItems, 'item_name'))) {
-            $error = "Invalid selection. The chosen content does not match the menu for $mealType on $dayOfWeek.<br>Available items are:<br>";
+            $error = "Invalid selection. The chosen content does not match the menu for $mealType on $dayOfWeek.Available items are:";
             foreach ($validMenuItems as $menuItem) {
-                $error .= "- " . htmlspecialchars($menuItem['item_name']) . "<br>";
+                $error .= "- " . htmlspecialchars($menuItem['item_name']) ;
             }
         }
-
+        
         // If there is an error, render the form again
         if (!empty($error)) {
             require_once __DIR__ . '/../Views/reservation/add.php';
@@ -140,11 +140,11 @@ public function add() {
 
             // Check if the chosen content is valid
             if (!in_array($contents, array_column($validMenuItems, 'item_name'))) {
-                $error = "Invalid selection. The chosen content does not match the menu for $mealType on $dayOfWeek.<br>Available items are:<br>";
+                $error = "Invalid selection. The chosen content does not match the menu for $mealType on $dayOfWeek.Available items are:";
 
                 // Append available items to the error message
                 foreach ($validMenuItems as $menuItem) {
-                    $error .= "- " . htmlspecialchars($menuItem['item_name']) . "<br>";
+                    $error .= "- " . htmlspecialchars($menuItem['item_name']) ;
                 }
 
                 // Render the edit form again with the error message
