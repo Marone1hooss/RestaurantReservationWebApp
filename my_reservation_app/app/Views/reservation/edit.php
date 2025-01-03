@@ -6,6 +6,11 @@
 <body>
 <h1>Edit Reservation #<?= $reservation['id'] ?></h1>
 <a href="index.php?controller=reservation&action=manage">Back to Manage</a>
+<?php if (!empty($error)): ?>
+    <div class="error-message" style="color: red; margin-bottom: 20px;">
+        <?php echo $error; ?>
+    </div>
+<?php endif; ?>
 
 <form method="post">
     <p>

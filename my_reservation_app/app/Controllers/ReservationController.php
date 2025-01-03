@@ -43,60 +43,72 @@ class ReservationController {
         require_once __DIR__ . '/../Views/reservation/manage.php';
     }
 
-    // Add a new reservation
-    public function add() {
-        if ($_SESSION['user_type'] !== 'student') {
-            header('Location: index.php');
-            exit;
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userId   = $_SESSION['user_id'];
-            $date     = $_POST['reservation_date'] ?? date('Y-m-d');
-            $mealType = $_POST['meal_type']        ?? 'breakfast';
-            $quantity = $_POST['quantity']         ?? 1;
-
-            // (Optional) For lunch/dinner, we might store item details in JSON:
-            $contents = $_POST['contents'] ?? 'standard breakfast';
-
-            // Time-based logic:
-            $today = date('Y-m-d');
-            if ($date === $today) {
-                $hour = date('H'); // 24-hour format
-                // cutoff checks
-                if ($mealType === 'breakfast' && $hour >= 9) {
-                    $error = "Cannot reserve breakfast after 09:00 AM today.";
-                } elseif ($mealType === 'lunch' && $hour >= 15) {
-                    $error = "Cannot reserve lunch after 15:00 (3 PM) today.";
-                } elseif ($mealType === 'dinner' && $hour >= 22) {
-                    $error = "Cannot reserve dinner after 22:00 (10 PM) today.";
-                }
-            }
-
-            // Compute total_price if you have item prices, etc.
-            $totalPrice = 0;
-            if ($mealType === 'breakfast') {
-                // Example default
-                $totalPrice = 15 * $quantity;
-            } elseif ($mealType === 'lunch') {
-                $totalPrice = 25 * $quantity;
-            } else {
-                $totalPrice = 20 * $quantity;
-            }
-
-            if (!isset($error)) {
-                // All good, create reservation
-                $this->reservationModel->createReservation(
-                    $userId, $date, $mealType, $contents, $quantity, $totalPrice
-                );
-                header('Location: index.php?controller=reservation&action=manage');
-                exit;
-            }
-        }
-
-        // If GET, or if we have an $error, show the form again
-        require_once __DIR__ . '/../Views/reservation/add.php';
+   // Add a new reservation
+public function add() {
+    if ($_SESSION['user_type'] !== 'student') {
+        header('Location: index.php');
+        exit;
     }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $userId   = $_SESSION['user_id'];
+        $date     = $_POST['reservation_date'] ?? date('Y-m-d');
+        $mealType = $_POST['meal_type']        ?? 'breakfast';
+        $quantity = $_POST['quantity']         ?? 1;
+        $contents = $_POST['contents']        ?? 'standard breakfast';
+
+        // Time-based logic
+        $today = date('Y-m-d');
+        if ($date === $today) {
+            $hour = date('H'); // 24-hour format
+            if ($mealType === 'breakfast' && $hour >= 9) {
+                $error = "Cannot reserve breakfast after 09:00 AM today.";
+            } elseif ($mealType === 'lunch' && $hour >= 15) {
+                $error = "Cannot reserve lunch after 15:00 (3 PM) today.";
+            } elseif ($mealType === 'dinner' && $hour >= 22) {
+                $error = "Cannot reserve dinner after 10:00 PM today.";
+            }
+        }
+
+        // Day of the week logic
+        $dayOfWeek = date('l', strtotime($date));
+        $validMenuItems = $this->menuModel->getItemsByDayAndMealType($dayOfWeek, $mealType);
+
+        if (!in_array($contents, array_column($validMenuItems, 'item_name'))) {
+            $error = "Invalid selection. The chosen content does not match the menu for $mealType on $dayOfWeek.<br>Available items are:<br>";
+            foreach ($validMenuItems as $menuItem) {
+                $error .= "- " . htmlspecialchars($menuItem['item_name']) . "<br>";
+            }
+        }
+
+        // If there is an error, render the form again
+        if (!empty($error)) {
+            require_once __DIR__ . '/../Views/reservation/add.php';
+            return;
+        }
+
+        // Compute total price
+        $totalPrice = 0;
+        if ($mealType === 'breakfast') {
+            $totalPrice = 15 * $quantity;
+        } elseif ($mealType === 'lunch') {
+            $totalPrice = 25 * $quantity;
+        } else {
+            $totalPrice = 20 * $quantity;
+        }
+
+        // Create the reservation
+        $this->reservationModel->createReservation(
+            $userId, $date, $mealType, $contents, $quantity, $totalPrice
+        );
+        header('Location: index.php?controller=reservation&action=manage');
+        exit;
+    }
+
+    // Render the form for GET requests
+    require_once __DIR__ . '/../Views/reservation/add.php';
+}
+
 
     public function edit() {
         if ($_SESSION['user_type'] !== 'student') {
@@ -119,10 +131,27 @@ class ReservationController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $contents   = $_POST['contents']  ?? $reservation['contents'];
             $quantity   = $_POST['quantity']  ?? $reservation['quantity'];
+            // Determine meal type and day of the week from the reservation
+            $mealType  = $reservation['meal_type'];
+            $dayOfWeek = date('l', strtotime($reservation['reservation_date']));
 
+            // Fetch valid items for the meal type and day of the week
+            $validMenuItems = $this->menuModel->getItemsByDayAndMealType($dayOfWeek, $mealType);
+
+            // Check if the chosen content is valid
+            if (!in_array($contents, array_column($validMenuItems, 'item_name'))) {
+                $error = "Invalid selection. The chosen content does not match the menu for $mealType on $dayOfWeek.<br>Available items are:<br>";
+
+                // Append available items to the error message
+                foreach ($validMenuItems as $menuItem) {
+                    $error .= "- " . htmlspecialchars($menuItem['item_name']) . "<br>";
+                }
+
+                // Render the edit form again with the error message
+                require_once __DIR__ . '/../Views/reservation/edit.php';
+                return;}
             // Recalculate total price if needed
             // This is simplistic: we assume meal_type didn’t change
-            $mealType = $reservation['meal_type'];
             $totalPrice = 0;
             if ($mealType === 'breakfast') {
                 $totalPrice = 15 * $quantity;

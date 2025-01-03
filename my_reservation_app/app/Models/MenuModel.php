@@ -57,4 +57,15 @@ class MenuModel {
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute(['id' => $id]);
     }
+
+    public function getItemsByDayAndMealType($dayOfWeek, $mealType) {
+        $sql = "SELECT * FROM {$this->table} WHERE day_of_week = :day_of_week and meal_type = :meal_type";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            'day_of_week' => $dayOfWeek, // Match the placeholder :day_of_week
+            'meal_type' => $mealType     // Match the placeholder :meal_type
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 }
