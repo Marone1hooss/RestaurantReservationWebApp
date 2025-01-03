@@ -47,11 +47,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="index.php?controller=reservation&action=index" class="nav-item nav-link">Dashboard</a>
-                        <a href="menu.html" class="nav-item nav-link active">Menu</a>
+                        <a href="index.php?controller=reservation&action=index" class="nav-item nav-link">Home</a>
+                        <a href="index.php?controller=menu&action=selectday" class="nav-item nav-link active">Menu</a>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="" class="btn btn-primary py-2 px-4">Book A Table</a>
+                    <a href="index.php?controller=reservation&action=add" class="btn btn-primary py-2 px-4">add reservation</a>
                 </div>
             </nav>
 
@@ -60,7 +60,7 @@
                     <h1 class="display-3 text-white mb-3 animated slideInDown"><?= htmlspecialchars($day) ?> Menu</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
-                            <li class="breadcrumb-item"><a href="index.php?controller=reservation&action=index">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="index.php?controller=reservation&action=index">Home</a></li>
                             <li class="breadcrumb-item text-white active" aria-current="page"><?= htmlspecialchars($day) ?> Menu</li>
                         </ol>
                     </nav>
