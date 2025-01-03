@@ -16,6 +16,7 @@ use App\Controllers\AuthController;
 use App\Controllers\MenuController;
 use App\Controllers\ReservationController;
 
+
 // Determine which controller and action to call
 $controller = $_GET['controller'] ?? 'auth';   // default = auth
 $action     = $_GET['action']     ?? 'login';  // default = login
