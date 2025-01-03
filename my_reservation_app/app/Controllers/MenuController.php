@@ -49,17 +49,27 @@ class MenuController {
         $allMenuItems = $this->menuModel->getAll();
         require_once __DIR__ . '/../Views/menu/admin_manage.php';
     }
-
+    
+    public function selectDay() {
+        // Display a form where the user can pick the weekday
+        require_once __DIR__ . '/../Views/menu/select_day.php';
+    }
     // Show entire week menu to students
     public function showWeek() {
         $allMenuItems = $this->menuModel->getAll();
         require_once __DIR__ . '/../Views/menu/show_week.php';
     }
 
-    // Show a single day’s menu to students
+   
     public function showDay() {
-        $day = $_GET['day'] ?? 'Monday';
+        // Look for 'day' in $_POST (or $_GET, if you prefer GET for some reason)
+        $day = $_POST['day'] ?? 'Monday';
+    
+        // Retrieve menu items for that day
         $menuItems = $this->menuModel->getByDay($day);
+    
+        // Display the result in show_day.php
         require_once __DIR__ . '/../Views/menu/show_day.php';
     }
+    
 }
