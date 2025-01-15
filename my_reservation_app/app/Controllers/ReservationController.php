@@ -23,11 +23,7 @@ class ReservationController {
 
     // Student main page after login
     public function index() {
-        // Simple check: Only allow if user is student
-        if ($_SESSION['user_type'] !== 'student') {
-            header('Location: index.php');
-            exit;
-        }
+        
         require_once __DIR__ . '/../Views/restaurant-template/index.html';
     }
 
@@ -59,6 +55,16 @@ public function add() {
             } elseif ($mealType === 'dinner' && $hour >= 22) {
                 $error = "Cannot reserve dinner after 10:00 PM today.";
             }
+        }
+        // Prevent reservation more than 7 days in advance
+        $todayDate = new \DateTime($today); // Use global namespace for DateTime
+        $reservationDate = new \DateTime($date); // Use global namespace for DateTime
+        $difference = $todayDate->diff($reservationDate)->days;
+
+        if ($reservationDate < $todayDate) {
+            $error = "Reservation date cannot be in the past.";
+        } elseif ($difference > 7) {
+            $error = "Cannot reserve for more than 7 days in advance.";
         }
 
         // Day of the week logic
