@@ -60,7 +60,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             <li class="breadcrumb-item"><a href="index.php?controller=reservation&action=index">Home</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Manage Reservations</li>
+                            <li class="breadcrumb-item text-white active"><a href = "" >Manage Reservations</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -98,15 +98,13 @@
                                         <td class="text-capitalize"><?= $res['meal_type'] ?></td>
                                         <td><?= htmlspecialchars($res['contents']) ?></td>
                                         <td><?= $res['quantity'] ?></td>
-                                        <td>$<?= number_format($res['total_price'], 2) ?></td>
+                                        <td><?= number_format($res['total_price'], 2) ?>Mad</td>
                                         <td>
                                             <a href="index.php?controller=reservation&action=edit&id=<?= $res['id'] ?>" 
                                                class="btn btn-sm btn-primary">
                                                 <i class="fa fa-edit"></i> Edit
                                             </a>
-                                            <a href="index.php?controller=reservation&action=delete&id=<?= $res['id'] ?>" 
-                                               class="btn btn-sm btn-danger"
-                                               onclick="return confirm('Are you sure you want to delete this reservation?')">
+                                            <a href="index.php?controller=reservation&action=delete&id=<?= $res['id'] ?>" class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash"></i> Delete
                                             </a>
                                         </td>

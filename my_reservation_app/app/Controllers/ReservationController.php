@@ -33,11 +33,6 @@ class ReservationController {
 
     // Show all reservations for the logged-in student
     public function manage() {
-        if ($_SESSION['user_type'] !== 'student') {
-            header('Location: index.php');
-            exit;
-        }
-
         $userId = $_SESSION['user_id'];
         $reservations = $this->reservationModel->getByUser($userId);
         require_once __DIR__ . '/../Views/reservation/manage.php';
@@ -45,11 +40,7 @@ class ReservationController {
 
    // Add a new reservation
 public function add() {
-    if ($_SESSION['user_type'] !== 'student') {
-        header('Location: index.php');
-        exit;
-    }
-
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userId   = $_SESSION['user_id'];
         $date     = $_POST['reservation_date'] ?? date('Y-m-d');
@@ -111,11 +102,7 @@ public function add() {
 
 
     public function edit() {
-        if ($_SESSION['user_type'] !== 'student') {
-            header('Location: index.php');
-            exit;
-        }
-
+        
         $id = $_GET['id'] ?? null;
         if (!$id) {
             header('Location: index.php?controller=reservation&action=manage');
@@ -170,11 +157,7 @@ public function add() {
     }
 
     public function delete() {
-        if ($_SESSION['user_type'] !== 'student') {
-            header('Location: index.php');
-            exit;
-        }
-
+        
         $id = $_GET['id'] ?? null;
         if ($id) {
             $this->reservationModel->deleteReservation($id);

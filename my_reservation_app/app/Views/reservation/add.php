@@ -60,7 +60,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             <li class="breadcrumb-item"><a href="index.php?controller=reservation&action=index">Home</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Add Reservation</li>
+                            <li class="breadcrumb-item text-white active"><a href = "" >Add Reservation</a></li>
                         </ol>
                     </nav>
                 </div>

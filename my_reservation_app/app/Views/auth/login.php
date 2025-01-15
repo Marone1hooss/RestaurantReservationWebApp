@@ -156,7 +156,7 @@ rgb(70, 35, 29),
             <p style="color:red; text-align: center;"> <?= htmlspecialchars($error) ?> </p>
         <?php endif; ?>
 
-        <p style="text-align: center; margin-top: 20px;font-size: 16px;"> New USER? <a href="http://localhost/RestaurantReservationWebApp/my_reservation_app/public/index.php?controller=auth&action=register">Click here</a></p>
+        <p style="text-align: center; margin-top: 20px;font-size: 16px;"> New USER? <a href="index.php?controller=auth&action=register">Click here</a></p>
 
         
     </form>

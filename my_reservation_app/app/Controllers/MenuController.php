@@ -54,11 +54,7 @@ class MenuController {
         // Display a form where the user can pick the weekday
         require_once __DIR__ . '/../Views/menu/select_day.php';
     }
-    // Show entire week menu to students
-    public function showWeek() {
-        $allMenuItems = $this->menuModel->getAll();
-        require_once __DIR__ . '/../Views/menu/show_week.php';
-    }
+    
 
    
     public function showDay() {

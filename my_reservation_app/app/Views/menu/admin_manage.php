@@ -38,14 +38,12 @@
 
         <!-- Hero Start -->
         <div class="container-xxl py-5 bg-dark hero-header mb-5">
-            <div class="container text-center my-5 pt-5 pb-4">
+            <div class="container text-center my-5 py-5">
                 <h1 class="display-3 text-white mb-3 animated slideInDown">Manage Weekly Menu</h1>
-                <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
                         <li class="breadcrumb-item"><a href="index.php?controller=auth&action=logout">Logout</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Manage Menu</li>
+                        <li class="breadcrumb-item text-white active"><a href="">Manage Menu</a></li>
                     </ol>
-                </nav>
             </div>
         </div>
         <!-- Hero End -->
@@ -55,9 +53,9 @@
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Add New Item</h5>
-                    <h1 class="mb-5">Create Menu Item</h1>
+                    <h1 class="mb-4">Create Menu Item</h1>
                 </div>
-                <div class="row g-4 justify-content-center">
+                <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="wow fadeInUp" data-wow-delay="0.2s">
                             <form method="post">
@@ -101,7 +99,7 @@
                                     </div>
                                     <div class="col-12">
                                         <button class="btn btn-primary w-100 py-3" type="submit">
-                                            <i class="fa fa-plus me-2"></i>Add Menu Item
+                                            Add Menu Item
                                         </button>
                                     </div>
                                 </div>
@@ -110,7 +108,7 @@
                     </div>
                 </div>
 
-                <!-- Existing Menu Items Table -->
+                <!-- Existing Menu Items -->
                 <div class="text-center wow fadeInUp mt-5" data-wow-delay="0.1s">
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Current Menu</h5>
                     <h1 class="mb-5">Existing Menu Items</h1>
@@ -135,7 +133,7 @@
                                     <td><?= $menuItem['day_of_week'] ?></td>
                                     <td class="text-capitalize"><?= $menuItem['meal_type'] ?></td>
                                     <td><?= htmlspecialchars($menuItem['item_name']) ?></td>
-                                    <td>$<?= number_format($menuItem['price'], 2) ?></td>
+                                    <td><?= number_format($menuItem['price'], 2) ?>Mad</td>
                                     <td>
                                         <form method="post" style="display:inline">
                                             <input type="hidden" name="action" value="edit">
@@ -148,7 +146,7 @@
                                                 </button>
                                             </div>
                                         </form>
-                                        <form method="post" style="display:inline" onsubmit="return confirm('Delete this item?')">
+                                        <form method="post" style="display:inline">
                                             <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="id" value="<?= $menuItem['id'] ?>">
                                             <button type="submit" class="btn btn-sm btn-danger">
@@ -157,7 +155,7 @@
                                         </form>
                                     </td>
                                 </tr>
-                                <?php endforeach; ?>
+                            <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>

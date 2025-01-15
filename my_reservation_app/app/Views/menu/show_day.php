@@ -61,7 +61,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             <li class="breadcrumb-item"><a href="index.php?controller=reservation&action=index">Home</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page"><?= htmlspecialchars($day) ?> Menu</li>
+                            <li class="breadcrumb-item text-white active"><a href=""> <?= htmlspecialchars($day) ?> Menu </a></li>
                         </ol>
                     </nav>
                 </div>
@@ -83,7 +83,7 @@
                                 <?php foreach ($menuItems as $menuItem): ?>
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="img/<?= htmlspecialchars($menuItem['item_name']) ?>.jpg" alt="" style="width: 80px;">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/<?= htmlspecialchars($menuItem['item_name']) ?>.jpg" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span><?= htmlspecialchars($menuItem['item_name']) ?></span>

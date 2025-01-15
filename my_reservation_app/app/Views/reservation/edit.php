@@ -61,7 +61,7 @@
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             <li class="breadcrumb-item"><a href="index.php?controller=reservation&action=index">Home</a></li>
                             <li class="breadcrumb-item"><a href="index.php?controller=reservation&action=manage">My Reservations</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Edit Reservation </li>
+                            <li class="breadcrumb-item text-white active" ><a href="">Edit Reservation</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -90,14 +90,14 @@
                                     <div class="col-12">
                                         <div class="form-floating">
                                             <input type="text" class="form-control" id="contents" name="contents" 
-                                                   value="<?= htmlspecialchars($reservation['contents']) ?>" placeholder="Contents">
+                                                   value="<?= htmlspecialchars($reservation['contents']) ?>">
                                             <label for="contents">Contents</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
                                             <input type="number" class="form-control" id="quantity" name="quantity" 
-                                                   value="<?= $reservation['quantity'] ?>" min="1" placeholder="Quantity">
+                                                   value="<?= $reservation['quantity'] ?>" min="1">
                                             <label for="quantity">Quantity</label>
                                         </div>
                                     </div>
